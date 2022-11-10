@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import signup from "./assets/signup.json";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
@@ -10,9 +10,10 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const { user, googleLogIn, signUpUser, namePhoto } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
 
   if (user) {
-    return setError("User already loged in.!");
+    navigate("/");
   }
 
   //=====User Email&Pass Signup====//
@@ -32,7 +33,11 @@ const SignUp = () => {
     }
 
     signUpUser(email, password)
-      .then((result) => console.log(result.user))
+      .then((result) => {
+        console.log(result.user);
+        setError("");
+        navigate("/");
+      })
       .then((error) => {
         setError(error.message);
         console.error(error);
@@ -43,7 +48,11 @@ const SignUp = () => {
   const handleGoogleLogin = (event) => {
     event.preventDefault();
     googleLogIn(provider)
-      .then((result) => console.log(result.user))
+      .then((result) => {
+        console.log(result.user);
+        setError("");
+        navigate("/");
+      })
       .catch((error) => {
         console.error(error);
         setError(error.message);
@@ -113,6 +122,7 @@ const SignUp = () => {
                   required
                 />
               </div>
+              <p className="text-red-500">{error}</p>
               <div className="form-control mt-6">
                 <button className="btn btn-accent">Register</button>
               </div>

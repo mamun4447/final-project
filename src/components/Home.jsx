@@ -5,9 +5,9 @@ import services from "./assets/services.json";
 
 const Home = () => {
   return (
-    <div className="mt-16">
-      <div className="container mx-auto flex flex-row items-center justify-center ">
-        <div className="col-span-2 ">
+    <div className=" mt-16 px-5">
+      <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-center ">
+        <div className="lg:col-span-2 ">
           <h1 className="text-6xl my-3">
             Make Life easy with{" "}
             <span className="text-yellow-400">GreehoSheba</span>
@@ -22,7 +22,7 @@ const Home = () => {
             Make order
           </Link>
         </div>
-        <div className="relative col-span-5 w-full lg:w-full lg:ml-auto h-56  sm:h-96">
+        <div className=" lg:col-span-5 w-60 md:w-96 lg:w-full lg:ml-auto h-56  sm:h-96">
           <Lottie animationData={services} loop={true} />
         </div>
       </div>

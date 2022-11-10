@@ -9,14 +9,16 @@ const Order = () => {
     <>
       {datas.map((data) => (
         <>
-          <div className="absolute w-[100vh]">
+          <div className="absolute lg:w-[100vh]">
             <Lottie animationData={order} loop={true} />
           </div>
           <div className="hero flex items-center justify-center h-[100vh] bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
-              <div className="text-center text-white py-24 rounded-md lg:text-left bg-black bg-opacity-30 p-10 w-[50%] ">
-                <h1 className="text-5xl font-bold">{data.title}</h1>
-                <p className="py-6">{data.description}</p>
+              <div className="text-center text-white lg:py-24 rounded-md lg:text-left bg-black bg-opacity-30 p-10  lg:w-[50%] ">
+                <h1 className="text-xl md:text-4xl lg:text-5xl font-bold">
+                  {data.title}
+                </h1>
+                <p className="py-6 hidden lg:block">{data.description}</p>
               </div>
               <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <div className="card-body ">

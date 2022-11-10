@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthContext } from "./context/UserContext";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, logOut } = useContext(AuthContext);
+
+  const hangleLogOut = (event) => {
+    event.preventDefault();
+    logOut();
+  };
 
   return (
     <div>
       <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
-        <div className="relative flex items-center justify-between">
-          <Link to="/" title="Greeho Sheba" className="flex items-center">
+        <div className=" flex items-center justify-between">
+          <Link
+            to="/"
+            title="Greeho Sheba"
+            className="relative flex items-center"
+          >
             <i className="text-yellow-400 text-2xl">
               <FaHome />
             </i>
@@ -47,9 +58,36 @@ const NavBar = () => {
             </li>
             <li>
               {/* Optional login or profile */}
-              <Link to="/login" className="btn btn-accent" title="Log In">
-                Log In
-              </Link>
+              {user ? (
+                <div className="flex items-center ">
+                  <button
+                    onClick={hangleLogOut}
+                    className="btn btn-accent"
+                    title="Log In"
+                  >
+                    Log Out
+                  </button>
+                  <div
+                    className="avatar ml-5 tooltip"
+                    data-tip={user.displayName}
+                  >
+                    <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                      {user?.photoURL ? (
+                        <img src={user.photoURL} alt="" />
+                      ) : (
+                        <img
+                          src="https://cdn3.iconfinder.com/data/icons/essential-rounded/64/Rounded-31-512.png"
+                          alt=""
+                        />
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <Link to="/login" className="btn btn-accent" title="Log In">
+                  Log In
+                </Link>
+              )}
             </li>
           </ul>
 
@@ -80,10 +118,10 @@ const NavBar = () => {
               </svg>
             </button>
             {isMenuOpen && (
-              <div className="absolute top-0 left-0 w-full">
+              <div className="w-full top-0 left-0">
                 <div className="p-5 bg-white border rounded shadow-sm">
                   <div className="flex items-center justify-between mb-4">
-                    <div>
+                    <div className="">
                       <Link
                         to="/"
                         title="Greeho Sheba"
@@ -147,14 +185,41 @@ const NavBar = () => {
                       </li>
 
                       <li>
-                        <Link
-                          to="/login"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Log In
-                        </Link>
+                        {/* Optional login or profile */}
+                        {user ? (
+                          <div className="flex items-center ">
+                            <button
+                              onClick={hangleLogOut}
+                              className="btn btn-accent"
+                              title="Log In"
+                            >
+                              Log Out
+                            </button>
+                            <div
+                              className="avatar ml-5 tooltip"
+                              data-tip={user.displayName}
+                            >
+                              <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                                {user?.photoURL ? (
+                                  <img src={user.photoURL} alt="" />
+                                ) : (
+                                  <img
+                                    src="https://cdn3.iconfinder.com/data/icons/essential-rounded/64/Rounded-31-512.png"
+                                    alt=""
+                                  />
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <Link
+                            to="/login"
+                            className="btn btn-accent"
+                            title="Log In"
+                          >
+                            Log In
+                          </Link>
+                        )}
                       </li>
                     </ul>
                   </nav>

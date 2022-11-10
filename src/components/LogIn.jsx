@@ -1,15 +1,65 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import login from "./assets/login.json";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
+import { FaGoogle, FaFacebook, FaGooglePlusSquare } from "react-icons/fa";
+import { AuthContext } from "./context/UserContext";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const LogIn = () => {
+  const [error, setError] = useState("");
+  const { user, googleLogIn, userLogIn } = useContext(AuthContext);
+  const provider = new GoogleAuthProvider();
+  const navigate = useNavigate();
+
+  if (user) {
+    navigate("/");
+  }
+
+  //=======Email & password Login=========//
+  const handleLogin = (event) => {
+    event.preventDefault();
+
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    userLogIn(email, password)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+        setError("");
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.log(error);
+      });
+  };
+
+  //=====Google Login=====//
+  const handleGoogleLogin = (event) => {
+    event.preventDefault();
+
+    googleLogIn(provider)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+        setError("");
+      })
+      .catch((error) => {
+        console.log(error);
+        setError(error.message);
+      });
+  };
+
   return (
     <div>
       <div className=" min-h-screen bg-base-200">
         <div className="hero-content flex-col-reverse lg:flex-row-reverse">
-          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <form
+            onSubmit={handleLogin}
+            className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+          >
             <h1 className="text-4xl font-bold text-center mt-7">Login now!</h1>
             <div className="card-body">
               <div className="form-control">
@@ -17,7 +67,8 @@ const LogIn = () => {
                   <span className="label-text">Email</span>
                 </label>
                 <input
-                  type="text"
+                  type="email"
+                  name="email"
                   placeholder="email"
                   className="input input-bordered"
                 />
@@ -27,10 +78,12 @@ const LogIn = () => {
                   <span className="label-text">Password</span>
                 </label>
                 <input
-                  type="text"
+                  type="password"
+                  name="password"
                   placeholder="password"
                   className="input input-bordered"
                 />
+                <p className="text-red-500">{error}</p>
                 <label className="label">
                   <Link to="#" className="label-text-alt link link-hover">
                     Forgot password?
@@ -52,15 +105,18 @@ const LogIn = () => {
 
               {/* ------------Social Media SignIn----------- */}
               <div className="flex items-center justify-center m-2 text-3xl gap-4">
-                <span className="bg-slate-200 p-2 rounded-full">
+                <button
+                  onClick={handleGoogleLogin}
+                  className="bg-slate-200 p-2 rounded-full"
+                >
                   <FaGoogle />
-                </span>
+                </button>
                 <span className="bg-slate-200 p-2 rounded-full">
                   <FaFacebook />
                 </span>
               </div>
             </div>
-          </div>
+          </form>
           <div className="w-[40%]">
             <Lottie animationData={login} loop={true} />
           </div>

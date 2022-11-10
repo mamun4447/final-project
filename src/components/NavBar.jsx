@@ -68,7 +68,7 @@ const NavBar = () => {
                     Log Out
                   </button>
                   <div
-                    className="avatar ml-5 tooltip"
+                    className="avatar ml-5 tooltip-left"
                     data-tip={user.displayName}
                   >
                     <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">

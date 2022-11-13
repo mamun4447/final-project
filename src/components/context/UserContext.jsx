@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../../firebase.config";
 
@@ -29,8 +30,11 @@ const UserContext = ({ children }) => {
   };
 
   //=======Name&Photo upload=======//
-  const namePhoto = (name, photo) => {
+  const namePhoto = (name) => {
     setLoader(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+    });
   };
 
   //========User Login======//
@@ -53,7 +57,6 @@ const UserContext = ({ children }) => {
     });
     return () => unSubscribe();
   }, []);
-
   return (
     <AuthContext.Provider
       value={{

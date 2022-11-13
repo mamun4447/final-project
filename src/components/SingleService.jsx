@@ -3,6 +3,7 @@ import GoogleFontLoader from "react-google-font-loader";
 import { Link } from "react-router-dom";
 
 const SingleService = ({ data }) => {
+  // console.log(data);
   <GoogleFontLoader
     fonts={[
       {
@@ -19,7 +20,7 @@ const SingleService = ({ data }) => {
   return (
     <div>
       <Link
-        to={`/services/${data.id}`}
+        to={`/services/${data._id}`}
         className="card z-0 w-full bg-base-100 shadow-xl image-full h-96 relative overflow-hidden transition duration-200 transform hover:-translate-y-2 hover:shadow-2xl"
         style={{ fontFamily: "Roboto Mono, monospaced" }}
       >

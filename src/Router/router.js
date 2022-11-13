@@ -7,6 +7,8 @@ import About from "../components/About";
 import LogIn from "../components/LogIn";
 import SignUp from "../components/SignUp";
 import Order from "../components/Order";
+import Dashboard from "../components/Dashboard";
+import PrivateRoute from "../components/PrivetRoutes/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -21,13 +23,21 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Services />,
-        loader: () => fetch("https://greeho-sheba-server.vercel.app/services"),
+        loader: () => fetch("http://localhost:5000/services"),
       },
       {
         path: "/services/:id",
-        element: <Order />,
+        element: (
+          <PrivateRoute>
+            <Order />
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
-          fetch(`https://greeho-sheba-server.vercel.app/services/${params.id}`),
+          fetch(`http://localhost:5000/services/${params.id}`),
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
       },
       {
         path: "/about",
@@ -40,6 +50,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
+        loader: () => fetch("http://localhost:5000/services"),
       },
     ],
   },

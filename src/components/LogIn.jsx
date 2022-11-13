@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import login from "./assets/login.json";
-import { FaGoogle, FaFacebook, FaGooglePlusSquare } from "react-icons/fa";
+import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
 import { GoogleAuthProvider } from "firebase/auth";
 
@@ -11,6 +11,9 @@ const LogIn = () => {
   const { user, googleLogIn, userLogIn } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   if (user) {
     navigate("/");
@@ -27,7 +30,7 @@ const LogIn = () => {
     userLogIn(email, password)
       .then((result) => {
         console.log(result.user);
-        navigate("/");
+        navigate(from, { replace: true });
         setError("");
       })
       .catch((error) => {

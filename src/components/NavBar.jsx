@@ -184,6 +184,15 @@ const NavBar = () => {
                       </li>
                       <li>
                         <Link
+                          to="/dashboard"
+                          title="All Services"
+                          className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                          Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
                           to="/about"
                           aria-label="Product pricing"
                           title="Product pricing"

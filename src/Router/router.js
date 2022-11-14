@@ -7,8 +7,8 @@ import About from "../components/About";
 import LogIn from "../components/LogIn";
 import SignUp from "../components/SignUp";
 import Order from "../components/Order";
-import Dashboard from "../components/Dashboard";
 import PrivateRoute from "../components/PrivetRoutes/PrivateRoute";
+import SideNav from "../components/Dashboard/SideNav";
 
 const router = createBrowserRouter([
   {
@@ -35,10 +35,7 @@ const router = createBrowserRouter([
         loader: ({ params }) =>
           fetch(`http://localhost:5000/services/${params.id}`),
       },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
+
       {
         path: "/about",
         element: <About />,
@@ -53,6 +50,10 @@ const router = createBrowserRouter([
         loader: () => fetch("http://localhost:5000/services"),
       },
     ],
+  },
+  {
+    path: "/dashboard",
+    element: <SideNav />,
   },
 ]);
 

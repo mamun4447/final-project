@@ -24,11 +24,11 @@ const SignUp = () => {
   if (user) {
     return navigate("/");
   }
-
-  const handleRole = (event) => {
+  const hanglerole = (event) => {
     event.preventDefault();
     setRole(!role);
   };
+
   // const select = form.select.value;
   //=====User Email&Pass Signup====//
   const handleRegister = (event) => {
@@ -36,23 +36,27 @@ const SignUp = () => {
 
     const form = event.target;
 
+    let service = "";
+    let phone = "";
+    let userRole = "user";
+    if (!role) {
+      service = form?.service.value;
+      phone = form.phone.value;
+      userRole = form.role.value;
+    }
     const name = form.name.value;
-    const service = form.service.value;
-    const phone = form.phone.value;
+
     const email = form.email.value;
     const password = form.password.value;
     const confirm = form.confirmPass.value;
     console.log(service);
 
-    const provider = {
+    const user = {
       name: name,
+      role: userRole,
       service: service,
       email: email,
       phone: phone,
-    };
-    const userInfo = {
-      name,
-      email,
     };
 
     if (password !== confirm) {
@@ -65,34 +69,22 @@ const SignUp = () => {
         console.log(result.user);
         setError("");
         handleNameUpdate(name);
-
         //======== post provider&user info ======
-        if (!role) {
-          fetch("http://localhost:5000/provider", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(provider),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log(data));
-        } else {
-          fetch("http://localhost:5000/user", {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(userInfo),
-          })
-            .then((res) => res.json())
-            .then((data) => console.log(data));
-        }
+
+        fetch("http://localhost:5000/users", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
 
         navigate(from, { replace: true });
       })
-      .then((error) => {
-        setError(error.message);
+      .catch((error) => {
+        setError(error);
         console.error(error);
       });
   };
@@ -131,7 +123,7 @@ const SignUp = () => {
               <p>User</p>
 
               <input
-                onClick={handleRole}
+                onClick={hanglerole}
                 type="checkbox"
                 className="toggle toggle-info"
               />
@@ -155,6 +147,17 @@ const SignUp = () => {
                 ""
               ) : (
                 <>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Role</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="role"
+                      defaultValue="provider"
+                      className="input input-bordered"
+                    />
+                  </div>
                   <div className="form-control">
                     <label className="label">
                       <span className="label-text">Service Name</span>

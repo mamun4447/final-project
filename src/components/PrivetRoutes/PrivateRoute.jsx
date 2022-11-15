@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import { AuthContext } from "../context/UserContext";
 
 const PrivateRoute = ({ children }) => {
@@ -7,7 +8,8 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
   // console.log(user);
   if (!user) {
-    return <Navigate to="/" state={{ from: location }} replace />;
+    toast.warn("Your have to login first!");
+    return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
   return children;

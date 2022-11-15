@@ -71,7 +71,7 @@ const SignUp = () => {
         handleNameUpdate(name);
         //======== post provider&user info ======
 
-        fetch("http://localhost:5000/users", {
+        fetch("https://greeho-sheba-server.vercel.app/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",

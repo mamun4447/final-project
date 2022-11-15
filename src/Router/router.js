@@ -23,7 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Services />,
-        loader: () => fetch("http://localhost:5000/services"),
+        loader: () => fetch("https://greeho-sheba-server.vercel.app/services"),
       },
       {
         path: "/services/:id",
@@ -33,7 +33,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(`https://greeho-sheba-server.vercel.app/services/${params.id}`),
       },
 
       {
@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
-        loader: () => fetch("http://localhost:5000/services"),
+        loader: () => fetch("https://greeho-sheba-server.vercel.app/services"),
       },
     ],
   },

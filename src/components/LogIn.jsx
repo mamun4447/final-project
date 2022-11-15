@@ -15,9 +15,9 @@ const LogIn = () => {
 
   const from = location.state?.from?.pathname || "/";
 
-  if (user) {
-    navigate("/");
-  }
+  // if (user) {
+  //   navigate("/");
+  // }
 
   //=======Email & password Login=========//
   const handleLogin = (event) => {

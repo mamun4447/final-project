@@ -9,6 +9,8 @@ import SignUp from "../components/SignUp";
 import Order from "../components/Order";
 import PrivateRoute from "../components/PrivetRoutes/PrivateRoute";
 import SideNav from "../components/Dashboard/SideNav";
+import AllUsers from "../components/Dashboard/AllUsers";
+import DashLayout from "../components/layout/DashLayout";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,7 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Services />,
-        loader: () => fetch("https://greeho-sheba-server.vercel.app/services"),
+        loader: () => fetch("http://localhost:5000/services"),
       },
       {
         path: "/services/:id",
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`https://greeho-sheba-server.vercel.app/services/${params.id}`),
+          fetch(`http://localhost:5000/services/${params.id}`),
       },
 
       {
@@ -47,13 +49,23 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
-        loader: () => fetch("https://greeho-sheba-server.vercel.app/services"),
+        loader: () => fetch("http://localhost:5000/services"),
       },
     ],
   },
   {
     path: "/dashboard",
-    element: <SideNav />,
+    element: (
+      <PrivateRoute>
+        <DashLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        path: "/dashboard/all-user",
+        element: <AllUsers />,
+      },
+    ],
   },
 ]);
 

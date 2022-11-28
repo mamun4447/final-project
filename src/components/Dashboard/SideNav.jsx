@@ -2,9 +2,13 @@ import React, { useContext } from "react";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/UserContext";
+import useAdmin from "../useHooks/useAdmin";
+import useUser from "../useHooks/useUser";
 
 const SideNav = () => {
   const { user } = useContext(AuthContext);
+  const { isProvider } = useUser(user?.email);
+  const { isAdmin } = useAdmin(user?.email);
   return (
     <div className="flex flex-col w-16 justify-center xs:items-center md:w-52 lg:w-64 h-screen py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700">
       <Link to="/" title="Greeho Sheba" className="relative flex items-center">
@@ -17,7 +21,7 @@ const SideNav = () => {
       </Link>
 
       <div className="flex flex-col items-center mt-6 -mx-2">
-        {user.photoURL ? (
+        {user?.photoURL ? (
           <img
             className="object-cover w-8 md:w-24 lg:w-24 h-8 md:h-24 ld:h-24 mx-2 rounded-full"
             src={user.photoURL}
@@ -31,10 +35,10 @@ const SideNav = () => {
           />
         )}
         <h4 className="mx-2 mt-2 font-medium text-gray-800 dark:text-gray-200 hover:underline hidden md:block lg:block">
-          {user.displayName}
+          {user?.displayName}
         </h4>
         <p className="mx-2 mt-1 text-sm font-medium text-gray-600 dark:text-gray-400 hover:underline hidden md:block lg:block">
-          {user.email}
+          {user?.email}
         </p>
       </div>
 
@@ -63,8 +67,8 @@ const SideNav = () => {
               Home
             </span>
           </Link>
-
-          <Link
+          {/* ====Service Provider====== */}
+          {/* <Link
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
             to="#"
           >
@@ -93,10 +97,12 @@ const SideNav = () => {
             <span className="mx-4 font-medium hidden md:block lg:block">
               Service providers
             </span>
-          </Link>
+          </Link> */}
+
+          {/* ====all user==== */}
           <Link
+            to="/dashboard/all-user"
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
-            to="#"
           >
             <svg
               className="w-5 h-5"
@@ -121,9 +127,10 @@ const SideNav = () => {
             </svg>
 
             <span className="mx-4 font-medium hidden md:block lg:block">
-              Customers
+              All Users
             </span>
           </Link>
+          {/* ====given services===== */}
           <Link
             className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700"
             to="#"

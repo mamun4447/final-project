@@ -38,14 +38,12 @@ const SignUp = () => {
 
     let service = "";
     let phone = "";
-    let userRole = "user";
     if (!role) {
       service = form?.service.value;
       phone = form.phone.value;
-      userRole = form.role.value;
     }
     const name = form.name.value;
-
+    const userRole = form.role.value;
     const email = form.email.value;
     const password = form.password.value;
     const confirm = form.confirmPass.value;
@@ -71,7 +69,7 @@ const SignUp = () => {
         handleNameUpdate(name);
         //======== post provider&user info ======
 
-        fetch("https://greeho-sheba-server.vercel.app/users", {
+        fetch("http://localhost:5000/users", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -130,6 +128,18 @@ const SignUp = () => {
               <p>Provider</p>
             </div>
             <form onSubmit={handleRegister} className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Role</span>
+                </label>
+                <input
+                  type="text"
+                  name="role"
+                  defaultValue="user"
+                  className="input input-bordered"
+                  readOnly
+                />
+              </div>
               {/* ====name==== */}
               <div className="form-control">
                 <label className="label">
@@ -156,6 +166,7 @@ const SignUp = () => {
                       name="role"
                       defaultValue="provider"
                       className="input input-bordered"
+                      readOnly
                     />
                   </div>
                   <div className="form-control">

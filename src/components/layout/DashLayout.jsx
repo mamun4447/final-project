@@ -4,7 +4,7 @@ import SideNav from "../Dashboard/SideNav";
 
 const DashLayout = () => {
   return (
-    <div>
+    <div className="flex ">
       <SideNav />
       <Outlet />
     </div>

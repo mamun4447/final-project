@@ -8,9 +8,16 @@ import LogIn from "../components/LogIn";
 import SignUp from "../components/SignUp";
 import Order from "../components/Order";
 import PrivateRoute from "../components/PrivetRoutes/PrivateRoute";
-import SideNav from "../components/Dashboard/SideNav";
-import AllUsers from "../components/Dashboard/AllUsers";
 import DashLayout from "../components/layout/DashLayout";
+import DashHome from "../components/Dashboard/DashHome";
+import AddService from "../components/Dashboard/AddService";
+import UserList from "../components/Dashboard/UserList";
+import ProvidersList from "../components/Dashboard/ProvidersList";
+import UsersOrder from "../components/Dashboard/Users/UsersOrder";
+import UserHistory from "../components/Dashboard/Users/UserHistory";
+import ProviderOrders from "../components/Dashboard/Provider/ProviderOrders";
+import ProviderHistory from "../components/Dashboard/Provider/ProviderHistory";
+import MyOrders from "../components/Dashboard/Provider/MyOrders";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/services",
         element: <Services />,
-        loader: () => fetch("http://localhost:5000/services"),
+        loader: () => fetch("http://localhost:8000/services"),
       },
       {
         path: "/services/:id",
@@ -35,7 +42,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/services/${params.id}`),
+          fetch(`http://localhost:8000/services/${params.id}`),
       },
 
       {
@@ -49,7 +56,7 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp />,
-        loader: () => fetch("http://localhost:5000/services"),
+        loader: () => fetch("http://localhost:8000/services"),
       },
     ],
   },
@@ -62,8 +69,40 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/dashboard/all-user",
-        element: <AllUsers />,
+        path: "/dashboard",
+        element: <DashHome />,
+      },
+      {
+        path: "/dashboard/users",
+        element: <UserList />,
+      },
+      {
+        path: "/dashboard/providers",
+        element: <ProvidersList />,
+      },
+      {
+        path: "/dashboard/add-service",
+        element: <AddService />,
+      },
+      {
+        path: "/dashboard/user-orders",
+        element: <UsersOrder />,
+      },
+      {
+        path: "/dashboard/user-history",
+        element: <UserHistory />,
+      },
+      {
+        path: "/dashboard/probider-orders",
+        element: <ProviderOrders />,
+      },
+      {
+        path: "/dashboard/provider-history",
+        element: <ProviderHistory />,
+      },
+      {
+        path: "/dashboard/provider-my_orders",
+        element: <MyOrders />,
       },
     ],
   },

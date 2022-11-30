@@ -10,6 +10,7 @@ import signup from "./assets/signup.json";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
 import { GoogleAuthProvider } from "firebase/auth";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const { datas } = useLoaderData();
@@ -38,8 +39,10 @@ const SignUp = () => {
 
     let service = "";
     let phone = "";
+    let serviceId = "";
     if (!role) {
       service = form?.service.value;
+      serviceId = datas.find((data) => data.title === service);
       phone = form.phone.value;
     }
     const name = form.name.value;
@@ -49,8 +52,9 @@ const SignUp = () => {
     const confirm = form.confirmPass.value;
     console.log(service);
 
-    const user = {
+    const userInfo = {
       name: name,
+      serviceId: serviceId._id,
       role: userRole,
       service: service,
       email: email,
@@ -66,18 +70,8 @@ const SignUp = () => {
       .then((result) => {
         console.log(result.user);
         setError("");
-        handleNameUpdate(name);
+        handleNameUpdate(name, userInfo);
         //======== post provider&user info ======
-
-        fetch("http://localhost:5000/users", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(user),
-        })
-          .then((res) => res.json())
-          .then((data) => console.log(data));
 
         navigate(from, { replace: true });
       })
@@ -88,10 +82,30 @@ const SignUp = () => {
   };
 
   //=====Name Update====//
-  const handleNameUpdate = (name) => {
+  const handleNameUpdate = (name, userInfo) => {
     namePhoto(name)
-      .then((result) => {})
+      .then((result) => {
+        userCreateDb(userInfo);
+      })
       .catch((error) => setError(error.message));
+  };
+
+  //=== User update in DB===//
+  const userCreateDb = (userInfo) => {
+    fetch("http://localhost:8000/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          return toast.success(data.message);
+        }
+        toast.error(data.message);
+      });
   };
 
   //=====google Login=====//
@@ -102,6 +116,7 @@ const SignUp = () => {
         console.log(result.user);
         setError("");
         navigate("/");
+        toast.success("User Loged In!!");
       })
       .catch((error) => {
         console.error(error);
@@ -128,18 +143,6 @@ const SignUp = () => {
               <p>Provider</p>
             </div>
             <form onSubmit={handleRegister} className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Role</span>
-                </label>
-                <input
-                  type="text"
-                  name="role"
-                  defaultValue="user"
-                  className="input input-bordered"
-                  readOnly
-                />
-              </div>
               {/* ====name==== */}
               <div className="form-control">
                 <label className="label">
@@ -153,8 +156,21 @@ const SignUp = () => {
                   required
                 />
               </div>
+
+              {/* === Role Handle=== */}
               {role ? (
-                ""
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Role</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="role"
+                    defaultValue="User"
+                    className="input input-bordered"
+                    readOnly
+                  />
+                </div>
               ) : (
                 <>
                   <div className="form-control">
@@ -164,7 +180,7 @@ const SignUp = () => {
                     <input
                       type="text"
                       name="role"
-                      defaultValue="provider"
+                      defaultValue="Provider"
                       className="input input-bordered"
                       readOnly
                     />

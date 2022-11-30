@@ -31,7 +31,7 @@ const SingleService = ({ data }) => {
             alt=""
           />
         </div>
-        <div className="card-body flex items-center justify-center absolute inset-0 px-6 py-4 transition-opacity duration-200 bg-black bg-opacity-50 opacity-0 hover:opacity-100">
+        <div className="card-body flex items-center justify-center absolute inset-0 px-6 py-4 transition-opacity duration-200 bg-black bg-opacity-25 opacity-0 hover:opacity-100">
           <h2 className=" text-3xl text-center ">{data.title}</h2>
         </div>
       </Link>

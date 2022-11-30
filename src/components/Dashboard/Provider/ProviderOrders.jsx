@@ -9,17 +9,14 @@ const ProviderOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState();
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/available-orders/${user?.email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.success) {
-          return setOrders(data.data);
-        }
-        toast.error(data.error);
-      });
-  }, [user?.email]);
+  fetch(`https://greehosheba.vercel.app/available-orders/${user?.email}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        return setOrders(data.data);
+      }
+      toast.error(data.error);
+    });
 
   const handleAcceptOrder = (id) => {
     const providerEmail = {
@@ -27,7 +24,7 @@ const ProviderOrders = () => {
       status: "working",
     };
 
-    fetch(`http://localhost:8000/accept-order/${id}`, {
+    fetch(`https://greehosheba.vercel.app/accept-order/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
@@ -45,49 +42,51 @@ const ProviderOrders = () => {
 
   return (
     <div className="mx-10 w-full my-10">
-      <h1 className="text-4xl text-center my-10">My Orders</h1>
       {orders?.length > 0 ? (
-        <div className="overflow-x-auto w-full">
-          <table className="table w-full">
-            {/* <!-- head --> */}
-            <thead>
-              <tr>
-                <th></th>
-                <th>Service</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders?.map((order, i) => (
-                <tr key={order._id}>
-                  <th>{i}</th>
-                  <td>
-                    <div className="flex items-center space-x-3">
-                      <div>
-                        <div className="font-bold">{order.service}</div>
-                        <div className="text-sm opacity-50">
-                          Price: {order.price}
+        <>
+          <h1 className="text-4xl text-center my-10">My Orders</h1>
+          <div className="overflow-x-auto w-full">
+            <table className="table w-full">
+              {/* <!-- head --> */}
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Service</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders?.map((order, i) => (
+                  <tr key={order._id}>
+                    <th>{i}</th>
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        <div>
+                          <div className="font-bold">{order.service}</div>
+                          <div className="text-sm opacity-50">
+                            Price: {order.price}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>{order.description}</td>
-                  <td>{order.status}</td>
-                  <th>
-                    <button
-                      onClick={() => handleAcceptOrder(order?._id)}
-                      className="btn btn-accent btn-xs"
-                    >
-                      Accept Order
-                    </button>
-                  </th>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                    </td>
+                    <td>{order.description}</td>
+                    <td>{order.status}</td>
+                    <th>
+                      <button
+                        onClick={() => handleAcceptOrder(order?._id)}
+                        className="btn btn-accent btn-xs"
+                      >
+                        Accept Order
+                      </button>
+                    </th>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       ) : (
         <div className="text-5xl flex justify-center items-center">
           No Orders

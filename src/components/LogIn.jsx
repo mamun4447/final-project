@@ -5,19 +5,21 @@ import login from "./assets/login.json";
 import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
 import { GoogleAuthProvider } from "firebase/auth";
+import Spinner from "./Spinner/Spinner";
+import SmallSpinner from "./Spinner/SmallSpinner";
 
 const LogIn = () => {
   const [error, setError] = useState("");
-  const { user, googleLogIn, userLogIn } = useContext(AuthContext);
+  const { user, loader, googleLogIn, userLogIn } = useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
 
-  // if (user) {
-  //   navigate("/");
-  // }
+  if (user) {
+    return navigate("/");
+  }
 
   //=======Email & password Login=========//
   const handleLogin = (event) => {
@@ -94,7 +96,9 @@ const LogIn = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-accent">Login</button>
+                <button className="btn btn-accent">
+                  {loader ? <SmallSpinner /> : "Login"}
+                </button>
               </div>
               <p>
                 Don't have an account?{" "}

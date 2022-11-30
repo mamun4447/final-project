@@ -18,7 +18,7 @@ const SingleService = ({ data }) => {
     subsets={["cyrillic-ext", "greek"]}
   />;
   return (
-    <div>
+    <div className="mx-3">
       <Link
         to={`/services/${data._id}`}
         className="card z-0 w-full bg-base-100 shadow-xl image-full h-96 relative overflow-hidden transition duration-200 transform hover:-translate-y-2 hover:shadow-2xl"

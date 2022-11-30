@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const ProvidersList = () => {
   const [providersList, setprovidersList] = useState();
 
-  fetch("http://localhost:8000/providers-list")
+  fetch("https://greehosheba.vercel.app/providers-list")
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
@@ -13,6 +13,20 @@ const ProvidersList = () => {
       }
       toast.error(data?.error);
     });
+
+  //Delete Provider
+  const handleDeleteProvider = (id) => {
+    fetch(`https://greehosheba.vercel.app/provider-delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          return toast.success(data.message);
+        }
+        toast.error(data.error);
+      });
+  };
 
   return (
     <div className="w-full mx-10">
@@ -40,7 +54,10 @@ const ProvidersList = () => {
                   <button className="btn btn-accent mr-2 btn-sm">
                     Make Admin
                   </button>
-                  <button className="btn btn-error btn-sm">
+                  <button
+                    onClick={() => handleDeleteProvider(provider._id)}
+                    className="btn btn-error btn-sm"
+                  >
                     Delete provider
                   </button>
                 </td>

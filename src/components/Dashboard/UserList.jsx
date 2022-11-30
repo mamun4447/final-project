@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const UserList = () => {
   const [usersList, setUsersList] = useState();
 
-  fetch("http://localhost:8000/users-list")
+  fetch("https://greehosheba.vercel.app/users-list")
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
@@ -13,6 +13,20 @@ const UserList = () => {
       }
       toast.error(data?.error);
     });
+
+  //Delete Provider
+  const handleDeleteUser = (id) => {
+    fetch(`https://greehosheba.vercel.app/user-delete/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          return toast.success(data.message);
+        }
+        toast.error(data.error);
+      });
+  };
 
   return (
     <div className="w-full mx-10">
@@ -38,7 +52,12 @@ const UserList = () => {
                   <button className="btn btn-accent mr-2 btn-sm">
                     Make Admin
                   </button>
-                  <button className="btn btn-error btn-sm">Delete user</button>
+                  <button
+                    onClick={() => handleDeleteUser(user._id)}
+                    className="btn btn-error btn-sm"
+                  >
+                    Delete user
+                  </button>
                 </td>
               </tr>
             ))}

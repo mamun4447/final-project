@@ -11,7 +11,7 @@ const SideNav = () => {
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${user?.email}`)
+    fetch(`https://greehosheba.vercel.app/users/${user?.email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

@@ -2,10 +2,11 @@ import React, { useContext, useState } from "react";
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { AuthContext } from "./context/UserContext";
+import SmallSpinner from "./Spinner/SmallSpinner";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, logOut } = useContext(AuthContext);
+  const { user, loader, logOut } = useContext(AuthContext);
 
   const hangleLogOut = (event) => {
     event.preventDefault();
@@ -14,7 +15,7 @@ const NavBar = () => {
 
   return (
     <div>
-      <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+      <div className="px-4 md:px-16 lg:px-0 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl  ">
         <div className=" flex items-center justify-between">
           <Link
             to="/"
@@ -213,13 +214,16 @@ const NavBar = () => {
                               className="btn btn-accent"
                               title="Log In"
                             >
-                              Log Out
+                              {loader ? <SmallSpinner /> : "Log Out"}
                             </button>
                             <div
                               className="avatar ml-5 tooltip"
                               data-tip={user.displayName}
                             >
-                              <div className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                              <Link
+                                to="/user-profile"
+                                className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                              >
                                 {user?.photoURL ? (
                                   <img src={user.photoURL} alt="" />
                                 ) : (
@@ -228,7 +232,7 @@ const NavBar = () => {
                                     alt=""
                                   />
                                 )}
-                              </div>
+                              </Link>
                             </div>
                           </div>
                         ) : (
@@ -237,7 +241,7 @@ const NavBar = () => {
                             className="btn btn-accent"
                             title="Log In"
                           >
-                            Log In
+                            {loader ? <SmallSpinner /> : "Log In"}
                           </Link>
                         )}
                       </li>

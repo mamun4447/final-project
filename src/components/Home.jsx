@@ -1,9 +1,13 @@
 import Lottie from "lottie-react";
 import React from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import services from "./assets/services.json";
+import { AuthContext } from "./context/UserContext";
+import SmallSpinner from "./Spinner/SmallSpinner";
 
 const Home = () => {
+  const { loader } = useContext(AuthContext);
   return (
     <div className=" mt-16 px-5">
       <div className="container mx-auto flex flex-col-reverse lg:flex-row items-center justify-center ">
@@ -19,7 +23,7 @@ const Home = () => {
             fugiat animi facere cupiditate!
           </p>
           <Link to="/services" title="All Services" className="btn btn-accent">
-            Make order
+            {loader ? <SmallSpinner /> : "Make order"}
           </Link>
         </div>
         <div className=" lg:col-span-5 w-60 md:w-96 lg:w-full lg:ml-auto h-56  sm:h-96">

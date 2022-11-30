@@ -5,10 +5,12 @@ import order from "./assets/order.json";
 import { useContext } from "react";
 import { AuthContext } from "./context/UserContext";
 import toast from "react-hot-toast";
+import SmallSpinner from "./Spinner/SmallSpinner";
+import Spinner from "./Spinner/Spinner";
 
 const Order = () => {
   const { datas } = useLoaderData();
-  const { user } = useContext(AuthContext);
+  const { user, loader } = useContext(AuthContext);
   const navigate = useNavigate();
   // console.log(datas);
 
@@ -20,16 +22,16 @@ const Order = () => {
     const price = form.price.value;
 
     const orderInfo = {
-      service: datas.title,
+      service: datas?.title,
       price,
       description,
-      serviceId: datas._id,
-      user_email: user.email,
+      serviceId: datas?._id,
+      user_email: user?.email,
       status: "pending",
       provider_email: "",
     };
 
-    fetch("http://localhost:8000/orders", {
+    fetch("https://greehosheba.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -48,7 +50,7 @@ const Order = () => {
   };
   return (
     <>
-      <div className="absolute lg:w-[100vh]">
+      <div className="absolute lg:w-[100vh] lg:ml-32">
         <Lottie animationData={order} loop={true} />
       </div>
       <div className="hero flex items-center justify-center h-[100vh] bg-base-200">
@@ -88,7 +90,7 @@ const Order = () => {
 
                 <div className="form-control mt-6">
                   <button className="btn btn-primary">
-                    Find Service Provider
+                    {loader ? <SmallSpinner /> : "Find Service Provider"}
                   </button>
                 </div>
               </div>

@@ -62,6 +62,7 @@ const UserContext = ({ children }) => {
       value={{
         user,
         loader,
+        setLoader,
         googleLogIn,
         signUpUser,
         logOut,

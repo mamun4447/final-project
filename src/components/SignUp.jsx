@@ -11,12 +11,15 @@ import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
 import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
+import SmallSpinner from "./Spinner/SmallSpinner";
+import Spinner from "./Spinner/Spinner";
 
 const SignUp = () => {
   const { datas } = useLoaderData();
   const [error, setError] = useState("");
   const [role, setRole] = useState(true);
-  const { user, googleLogIn, signUpUser, namePhoto } = useContext(AuthContext);
+  const { user, loader, googleLogIn, signUpUser, namePhoto } =
+    useContext(AuthContext);
   const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const location = useLocation();
@@ -92,7 +95,7 @@ const SignUp = () => {
 
   //=== User update in DB===//
   const userCreateDb = (userInfo) => {
-    fetch("http://localhost:8000/users", {
+    fetch("https://greehosheba.vercel.app/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -258,7 +261,9 @@ const SignUp = () => {
               </div>
               <p className="text-red-500">{error}</p>
               <div className="form-control mt-6">
-                <button className="btn btn-accent">Register</button>
+                <button className="btn btn-accent">
+                  {loader ? <SmallSpinner /> : "Register"}
+                </button>
               </div>
               <p>
                 Already have an account?

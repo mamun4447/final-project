@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/UserContext";
@@ -6,16 +7,29 @@ const MyOrders = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState();
 
-  useEffect(() => {
-    fetch(`http://localhost:8000/my-orders/${user?.email}`)
+  fetch(`https://greehosheba.vercel.app/my-orders/${user?.email}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setOrders(data.data);
+    });
+
+  const handleCompleteOrder = (id) => {
+    fetch(`https://greehosheba.vercel.app/complete-orders/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          return setOrders(data.data);
+          // refetch();
+          return toast.success(data.message);
         }
         toast.error(data.error);
       });
-  }, [user?.email]);
+  };
+
   return (
     <div className="mx-10 w-full my-10">
       <h1 className="text-4xl text-center my-10">My Orders</h1>
@@ -50,7 +64,7 @@ const MyOrders = () => {
                   <td>{order.status}</td>
                   <th>
                     <button
-                      // onClick={() => HandleAcceptOrder(order._id)}
+                      onClick={() => handleCompleteOrder(order._id)}
                       className="btn btn-accent btn-xs"
                     >
                       Complete

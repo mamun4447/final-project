@@ -20,7 +20,7 @@ const ProviderHistory = () => {
     <div className="mx-10 w-full my-10">
       {orders?.length > 0 ? (
         <>
-          <h1 className="text-4xl text-center my-10">My Orders</h1>
+          <h1 className="text-4xl text-center my-10">My History</h1>
           <div className="overflow-x-auto w-full">
             <table className="table w-full">
               {/* <!-- head --> */}

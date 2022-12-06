@@ -54,7 +54,7 @@ const UserHistory = () => {
                         // onClick={() => HandleAcceptOrder(order._id)}
                         className="btn btn-error btn-xs"
                       >
-                        Delete Histor
+                        Delete History
                       </button>
                     </th>
                   </tr>

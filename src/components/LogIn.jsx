@@ -31,7 +31,7 @@ const LogIn = () => {
 
     userLogIn(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         navigate(from, { replace: true });
         setError("");
       })

@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../context/UserContext";
 
@@ -48,7 +47,7 @@ const MyOrders = () => {
             </thead>
             <tbody>
               {orders?.map((order, i) => (
-                <tr key={order._id}>
+                <tr key={order?._id}>
                   <th>{i}</th>
                   <td>
                     <div className="flex items-center space-x-3">
@@ -60,11 +59,20 @@ const MyOrders = () => {
                       </div>
                     </div>
                   </td>
-                  <td>{order.description}</td>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div>
+                        <div className="font-bold">{order.description}</div>
+                        <div className="text-sm opacity-50">
+                          Address: {order.address}
+                        </div>
+                      </div>
+                    </div>
+                  </td>
                   <td>{order.status}</td>
                   <th>
                     <button
-                      onClick={() => handleCompleteOrder(order._id)}
+                      onClick={() => handleCompleteOrder(order?._id)}
                       className="btn btn-accent btn-xs"
                     >
                       Complete

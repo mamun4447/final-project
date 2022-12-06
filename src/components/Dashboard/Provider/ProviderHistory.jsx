@@ -35,7 +35,7 @@ const ProviderHistory = () => {
               </thead>
               <tbody>
                 {orders?.map((order, i) => (
-                  <tr key={order._id}>
+                  <tr key={order?._id}>
                     <th>{i}</th>
                     <td>
                       <div className="flex items-center space-x-3">
@@ -54,7 +54,7 @@ const ProviderHistory = () => {
                         // onClick={() => HandleAcceptOrder(order._id)}
                         className="btn btn-accent btn-xs"
                       >
-                        Complete
+                        Review
                       </button>
                     </th>
                   </tr>

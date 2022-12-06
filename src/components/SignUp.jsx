@@ -12,12 +12,11 @@ import { AuthContext } from "./context/UserContext";
 import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
 import SmallSpinner from "./Spinner/SmallSpinner";
-import Spinner from "./Spinner/Spinner";
 
 const SignUp = () => {
   const { datas } = useLoaderData();
   const [error, setError] = useState("");
-  const [role, setRole] = useState(true);
+  const [role, setRole] = useState(false);
   const { user, loader, googleLogIn, signUpUser, namePhoto } =
     useContext(AuthContext);
   const provider = new GoogleAuthProvider();
@@ -28,13 +27,13 @@ const SignUp = () => {
   if (user) {
     return navigate("/");
   }
-  const hanglerole = (event) => {
+  const handleRole = (event) => {
     event.preventDefault();
     setRole(!role);
   };
 
   // const select = form.select.value;
-  //=====User Email&Pass Signup====//
+  //=====User Email&Pass SignUp====//
   const handleRegister = (event) => {
     event.preventDefault();
 
@@ -43,7 +42,7 @@ const SignUp = () => {
     let service = "";
     let phone = "";
     let serviceId = "";
-    if (!role) {
+    if (role) {
       service = form?.service.value;
       serviceId = datas.find((data) => data.title === service);
       phone = form.phone.value;
@@ -57,7 +56,7 @@ const SignUp = () => {
 
     const userInfo = {
       name: name,
-      serviceId: serviceId._id,
+      serviceId: serviceId?._id,
       role: userRole,
       service: service,
       email: email,
@@ -71,7 +70,7 @@ const SignUp = () => {
 
     signUpUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        // console.log(result.user);
         setError("");
         handleNameUpdate(name, userInfo);
         //======== post provider&user info ======
@@ -139,7 +138,7 @@ const SignUp = () => {
               <p>User</p>
 
               <input
-                onClick={hanglerole}
+                onClick={handleRole}
                 type="checkbox"
                 className="toggle toggle-info"
               />
@@ -161,7 +160,7 @@ const SignUp = () => {
               </div>
 
               {/* === Role Handle=== */}
-              {role ? (
+              {!role ? (
                 <div className="form-control">
                   <label className="label">
                     <span className="label-text">Role</span>
@@ -197,7 +196,7 @@ const SignUp = () => {
                       className="select select-bordered w-full max-w-xs"
                     >
                       {datas.map((data) => (
-                        <option key={data._id} value={data.title}>
+                        <option key={data?._id} value={data.title}>
                           {data.title}
                         </option>
                       ))}

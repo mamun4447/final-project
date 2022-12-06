@@ -45,7 +45,7 @@ const ProvidersList = () => {
           </thead>
           <tbody>
             {providersList?.map((provider, i) => (
-              <tr key={provider._id} className="active">
+              <tr key={provider?._id} className="active">
                 <th>{i}</th>
                 <td>{provider.name}</td>
                 <td>{provider.email}</td>
@@ -55,7 +55,7 @@ const ProvidersList = () => {
                     Make Admin
                   </button>
                   <button
-                    onClick={() => handleDeleteProvider(provider._id)}
+                    onClick={() => handleDeleteProvider(provider?._id)}
                     className="btn btn-error btn-sm"
                   >
                     Delete provider

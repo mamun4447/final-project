@@ -34,7 +34,7 @@ const Services = () => {
       </h1>
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10">
         {datas?.map((data) => (
-          <SingleService key={data._id} data={data} />
+          <SingleService key={data?._id} data={data} />
         ))}
       </div>
     </>

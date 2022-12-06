@@ -44,7 +44,7 @@ const UserList = () => {
           </thead>
           <tbody>
             {usersList?.map((user, i) => (
-              <tr key={user._id} className="active">
+              <tr key={user?._id} className="active">
                 <th>{i}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
@@ -53,7 +53,7 @@ const UserList = () => {
                     Make Admin
                   </button>
                   <button
-                    onClick={() => handleDeleteUser(user._id)}
+                    onClick={() => handleDeleteUser(user?._id)}
                     className="btn btn-error btn-sm"
                   >
                     Delete user

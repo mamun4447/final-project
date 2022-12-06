@@ -6,13 +6,11 @@ import { useContext } from "react";
 import { AuthContext } from "./context/UserContext";
 import toast from "react-hot-toast";
 import SmallSpinner from "./Spinner/SmallSpinner";
-import Spinner from "./Spinner/Spinner";
 
 const Order = () => {
   const { datas } = useLoaderData();
   const { user, loader } = useContext(AuthContext);
   const navigate = useNavigate();
-  // console.log(datas);
 
   const handleOrder = (event) => {
     event.preventDefault();
@@ -20,10 +18,12 @@ const Order = () => {
     const form = event.target;
     const description = form.description.value;
     const price = form.price.value;
+    const address = form.address.value;
 
     const orderInfo = {
       service: datas?.title,
       price,
+      address,
       description,
       serviceId: datas?._id,
       user_email: user?.email,
@@ -75,6 +75,7 @@ const Order = () => {
                   className="textarea h-32 w-full textarea-accent"
                   name="description"
                   placeholder="describe..."
+                  required
                 ></textarea>
 
                 {/* ===Price=== */}
@@ -86,6 +87,19 @@ const Order = () => {
                   name="price"
                   placeholder="your budget(tk)"
                   className="input input-bordered input-accent w-full max-w-xs"
+                  required
+                />
+
+                {/* ===Address=== */}
+                <label className="label">
+                  <span className="label-text">Your address</span>
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  placeholder="address"
+                  className="input input-bordered input-accent w-full max-w-xs"
+                  required
                 />
 
                 <div className="form-control mt-6">

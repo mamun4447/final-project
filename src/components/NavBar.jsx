@@ -8,28 +8,29 @@ const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, loader, logOut } = useContext(AuthContext);
 
-  const hangleLogOut = (event) => {
+  const handleLogout = (event) => {
     event.preventDefault();
     logOut();
   };
 
   return (
     <div>
-      <div className="px-4 md:px-16 lg:px-0 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl  ">
-        <div className=" flex items-center justify-between">
+      <div className="px-4 md:px-16 lg:px-0 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl">
+        <div className="flex items-center justify-between">
           <Link
             to="/"
-            title="Greeho Sheba"
-            className="relative flex items-center"
+            // hidden={isMenuOpen}
+            title="Home"
+            className="flex items-center"
           >
             <i className="text-yellow-400 text-2xl">
               <FaHome />
             </i>
-            <span className="ml-2 text-2xl text-accent font-bold tracking-wide ">
+            <span className="ml-2 text-2xl text-accent font-bold ">
               GreehoSheba
             </span>
           </Link>
-          <ul className=" items-center hidden space-x-8 lg:flex">
+          <ul className="items-center hidden space-x-8 lg:flex">
             <li>
               <Link
                 to="/"
@@ -73,7 +74,7 @@ const NavBar = () => {
               {user ? (
                 <div className="flex items-center ">
                   <button
-                    onClick={hangleLogOut}
+                    onClick={handleLogout}
                     className="btn btn-accent"
                     title="Log In"
                   >
@@ -107,11 +108,12 @@ const NavBar = () => {
           -----Mobile Nav-----
           --------------------- */}
 
-          <div className="lg:hidden">
+          <div className="lg:hidden ">
             <button
               aria-label="Open Menu"
               title="Open Menu"
               className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50"
+              hidden={isMenuOpen}
               onClick={() => setIsMenuOpen(true)}
             >
               <svg className="w-5 text-gray-600" viewBox="0 0 24 24">
@@ -142,7 +144,7 @@ const NavBar = () => {
                         <i className="text-yellow-400 text-2xl">
                           <FaHome />
                         </i>
-                        <span className="ml-2 text-2xl text-accent font-bold tracking-wide ">
+                        <span className="ml-2 text-xl text-accent font-bold tracking-wide ">
                           GreehoSheba
                         </span>
                       </Link>
@@ -210,24 +212,22 @@ const NavBar = () => {
                         {user ? (
                           <div className="flex items-center ">
                             <button
-                              onClick={hangleLogOut}
-                              className="btn btn-accent"
+                              onClick={handleLogout}
+                              className="btn btn-accent btn-sm"
                               title="Log In"
                             >
                               {loader ? <SmallSpinner /> : "Log Out"}
                             </button>
                             <div
-                              className="avatar ml-5 tooltip"
+                              className="avatar ml-5 tooltip w-12"
                               data-tip={user.displayName}
                             >
-                              <Link
-                                to="/user-profile"
-                                className="w-12 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
-                              >
+                              <Link to="/" className=" lg:w-10 rounded-full ">
                                 {user?.photoURL ? (
                                   <img src={user.photoURL} alt="" />
                                 ) : (
                                   <img
+                                    className=""
                                     src="https://cdn3.iconfinder.com/data/icons/essential-rounded/64/Rounded-31-512.png"
                                     alt=""
                                   />

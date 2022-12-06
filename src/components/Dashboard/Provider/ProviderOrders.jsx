@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import toast from "react-hot-toast";
@@ -44,7 +43,7 @@ const ProviderOrders = () => {
     <div className="mx-10 w-full my-10">
       {orders?.length > 0 ? (
         <>
-          <h1 className="text-4xl text-center my-10">My Orders</h1>
+          <h1 className="text-4xl text-center my-10">Available Orders</h1>
           <div className="overflow-x-auto w-full">
             <table className="table w-full">
               {/* <!-- head --> */}
@@ -59,8 +58,9 @@ const ProviderOrders = () => {
               </thead>
               <tbody>
                 {orders?.map((order, i) => (
-                  <tr key={order._id}>
+                  <tr key={order?._id}>
                     <th>{i}</th>
+                    {/* ====Service name and price==== */}
                     <td>
                       <div className="flex items-center space-x-3">
                         <div>
@@ -71,7 +71,20 @@ const ProviderOrders = () => {
                         </div>
                       </div>
                     </td>
-                    <td>{order.description}</td>
+
+                    {/* ====Details==== */}
+                    <td>
+                      <div className="flex items-center space-x-3">
+                        <div>
+                          <div className="font-bold">{order.description}</div>
+                          <div className="text-sm opacity-50">
+                            Address: {order.address}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+
+                    {/* ====Status==== */}
                     <td>{order.status}</td>
                     <th>
                       <button

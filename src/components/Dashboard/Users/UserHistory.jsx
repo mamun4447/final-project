@@ -35,7 +35,7 @@ const UserHistory = () => {
               </thead>
               <tbody>
                 {orders?.map((order, i) => (
-                  <tr key={order._id}>
+                  <tr key={order?._id}>
                     <th>{i}</th>
                     <td>
                       <div className="flex items-center space-x-3">

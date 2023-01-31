@@ -7,9 +7,9 @@ import {
 } from "react-router-dom";
 import Lottie from "lottie-react";
 import signup from "./assets/signup.json";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
+// import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
-import { GoogleAuthProvider } from "firebase/auth";
+// import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
 import SmallSpinner from "./Spinner/SmallSpinner";
 
@@ -17,9 +17,8 @@ const SignUp = () => {
   const { datas } = useLoaderData();
   const [error, setError] = useState("");
   const [role, setRole] = useState(false);
-  const { user, loader, googleLogIn, signUpUser, namePhoto } =
-    useContext(AuthContext);
-  const provider = new GoogleAuthProvider();
+  const { user, loader, signUpUser, namePhoto } = useContext(AuthContext);
+  // const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -111,25 +110,25 @@ const SignUp = () => {
   };
 
   //=====google Login=====//
-  const handleGoogleLogin = (event) => {
-    event.preventDefault();
-    googleLogIn(provider)
-      .then((result) => {
-        console.log(result.user);
-        setError("");
-        navigate("/");
-        toast.success("User Loged In!!");
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(error.message);
-      });
-  };
+  // const handleGoogleLogin = (event) => {
+  //   event.preventDefault();
+  //   googleLogIn(provider)
+  //     .then((result) => {
+  //       console.log(result.user);
+  //       setError("");
+  //       navigate("/");
+  //       toast.success("User Loged In!!");
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //       setError(error.message);
+  //     });
+  // };
 
   return (
-    <div>
-      <div className=" min-h-screen bg-base-200">
-        <div className="hero-content flex-col-reverse lg:flex-row-reverse">
+    <>
+      <div className=" min-h-screen bg-base-100">
+        <div className="hero-content mx-auto gap-20 flex-col-reverse lg:flex-row-reverse">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <h1 className="text-4xl font-bold text-center mt-7">
               Registration!
@@ -274,7 +273,7 @@ const SignUp = () => {
                 </Link>
               </p>
               {/* ------------Social Media SignIn----------- */}
-              <div className="flex items-center justify-center m-2 text-3xl gap-4">
+              {/* <div className="flex items-center justify-center m-2 text-3xl gap-4">
                 <button
                   onClick={handleGoogleLogin}
                   className="bg-slate-200 p-2 rounded-full"
@@ -284,7 +283,7 @@ const SignUp = () => {
                 <span className="bg-slate-200 p-2 rounded-full">
                   <FaFacebook />
                 </span>
-              </div>
+              </div> */}
             </form>
           </div>
           <div className="w-[40%]">
@@ -292,7 +291,7 @@ const SignUp = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };;;;;;;;;;;;;;;;;;;;;;
 

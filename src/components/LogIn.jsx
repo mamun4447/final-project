@@ -2,16 +2,16 @@ import React, { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import login from "./assets/login.json";
-import { FaGoogle, FaFacebook } from "react-icons/fa";
+// import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
-import { GoogleAuthProvider } from "firebase/auth";
-import Spinner from "./Spinner/Spinner";
+// import { GoogleAuthProvider } from "firebase/auth";
+// import Spinner from "./Spinner/Spinner";
 import SmallSpinner from "./Spinner/SmallSpinner";
 
 const LogIn = () => {
   const [error, setError] = useState("");
-  const { user, loader, googleLogIn, userLogIn } = useContext(AuthContext);
-  const provider = new GoogleAuthProvider();
+  const { user, loader, userLogIn } = useContext(AuthContext);
+  // const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -42,25 +42,25 @@ const LogIn = () => {
   };
 
   //=====Google Login=====//
-  const handleGoogleLogin = (event) => {
-    event.preventDefault();
+  // const handleGoogleLogin = (event) => {
+  //   event.preventDefault();
 
-    googleLogIn(provider)
-      .then((result) => {
-        console.log(result.user);
-        navigate("/");
-        setError("");
-      })
-      .catch((error) => {
-        console.log(error);
-        setError(error.message);
-      });
-  };
+  //   googleLogIn(provider)
+  //     .then((result) => {
+  //       console.log(result.user);
+  //       navigate("/");
+  //       setError("");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setError(error.message);
+  //     });
+  // };
 
   return (
-    <div>
-      <div className=" min-h-screen bg-base-200">
-        <div className="hero-content flex-col-reverse lg:flex-row-reverse">
+    <>
+      <div className="flex bg-base-150">
+        <div className="hero-content mx-auto gap-32 flex-col-reverse lg:flex-row-reverse">
           <form
             onSubmit={handleLogin}
             className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
@@ -111,7 +111,7 @@ const LogIn = () => {
               </p>
 
               {/* ------------Social Media SignIn----------- */}
-              <div className="flex items-center justify-center m-2 text-3xl gap-4">
+              {/* <div className="flex items-center justify-center m-2 text-3xl gap-4">
                 <button
                   onClick={handleGoogleLogin}
                   className="bg-slate-200 p-2 rounded-full"
@@ -121,7 +121,7 @@ const LogIn = () => {
                 <span className="bg-slate-200 p-2 rounded-full">
                   <FaFacebook />
                 </span>
-              </div>
+              </div> */}
             </div>
           </form>
           <div className="w-[40%]">
@@ -129,7 +129,7 @@ const LogIn = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -4,10 +4,10 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
-  signInWithPopup,
+  // signInWithPopup,
   signOut,
   updateProfile,
-} from "firebase/auth";           
+} from "firebase/auth";
 import app from "../../firebase.config";
 
 const auth = getAuth(app);
@@ -18,10 +18,10 @@ const UserContext = ({ children }) => {
   const [loader, setLoader] = useState(true);
 
   //======Google Login======//
-  const googleLogIn = (provider) => {
-    setLoader(true);
-    return signInWithPopup(auth, provider);
-  };
+  // const googleLogIn = (provider) => {
+  //   setLoader(true);
+  //   return signInWithPopup(auth, provider);
+  // };
 
   //======User email&Pass signUp=======//
   const signUpUser = (email, password) => {
@@ -63,7 +63,7 @@ const UserContext = ({ children }) => {
         user,
         loader,
         setLoader,
-        googleLogIn,
+        // googleLogIn,
         signUpUser,
         logOut,
         namePhoto,

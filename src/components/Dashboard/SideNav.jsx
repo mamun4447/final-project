@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../context/UserContext";
 
 const SideNav = () => {
-  const { user } = useContext(AuthContext);
+  const { user,logOut } = useContext(AuthContext);
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
@@ -24,8 +24,12 @@ const SideNav = () => {
   return (
     <div className="flex flex-col w-16 justify-center xs:items-center md:w-52 lg:w-64 h-screen py-8 bg-white border-r dark:bg-gray-900 dark:border-gray-700">
       {/* Logo */}
-      <Link to="/" title="Greeho Sheba" className="relative flex items-center">
-        <i className="text-yellow-400 text-xl  lg:text-2xl ml-5 md:ml-4 lg:ml-5">
+      <Link
+        to="/"
+        title="Greeho Sheba"
+        className="relative flex items-center justify-center"
+      >
+        <i className="text-yellow-400 text-xl  lg:text-2xl ml-5 md:ml-4 lg:ml-0">
           <FaHome />
         </i>
         <span className="ml-2 text-xl lg:text-2xl text-accent font-bold tracking-wide hidden md:block lg:block">
@@ -325,6 +329,21 @@ const SideNav = () => {
               </Link>
             </>
           )}
+          <div className="text-center my-5">
+            {user ? (
+              <button
+                onClick={() => logOut()}
+                className="btn btn-accent"
+                title="Log In"
+              >
+                Log Out
+              </button>
+            ) : (
+              <Link to="/login" className="btn btn-accent" title="Log In">
+                Log In
+              </Link>
+            )}
+          </div>
         </nav>
       </div>
     </div>

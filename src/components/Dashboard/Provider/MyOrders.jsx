@@ -9,7 +9,7 @@ const MyOrders = () => {
   fetch(`https://greehosheba.vercel.app/my-orders/${user?.email}`)
     .then((res) => res.json())
     .then((data) => {
-      setOrders(data.data);
+      setOrders(data.data.reverse());
     });
 
   const handleCompleteOrder = (id) => {

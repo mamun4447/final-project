@@ -3,13 +3,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ProvidersList = () => {
-  const [providersList, setprovidersList] = useState();
+  const [providersList, setProvidersList] = useState();
 
   fetch("https://greehosheba.vercel.app/providers-list")
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        return setprovidersList(data.data);
+        return setProvidersList(data.data.reverse());
       }
       toast.error(data?.error);
     });
@@ -51,9 +51,9 @@ const ProvidersList = () => {
                 <td>{provider.email}</td>
                 <td>{provider.service}</td>
                 <td>
-                  <button className="btn btn-accent mr-2 btn-sm">
+                  {/* <button className="btn btn-accent mr-2 btn-sm">
                     Make Admin
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => handleDeleteProvider(provider?._id)}
                     className="btn btn-error btn-sm"

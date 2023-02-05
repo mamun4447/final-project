@@ -9,7 +9,7 @@ const UserList = () => {
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        return setUsersList(data.data);
+        return setUsersList(data.data.reverse());
       }
       toast.error(data?.error);
     });
@@ -49,9 +49,9 @@ const UserList = () => {
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
-                  <button className="btn btn-accent mr-2 btn-sm">
+                  {/* <button className="btn btn-accent mr-2 btn-sm">
                     Make Admin
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => handleDeleteUser(user?._id)}
                     className="btn btn-error btn-sm"

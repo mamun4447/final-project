@@ -11,7 +11,7 @@ const UsersOrder = () => {
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        return setOrders(data.data);
+        return setOrders(data.data.reverse());
       }
       toast.error(data.error);
     });

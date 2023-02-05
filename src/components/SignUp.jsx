@@ -7,9 +7,7 @@ import {
 } from "react-router-dom";
 import Lottie from "lottie-react";
 import signup from "./assets/signup.json";
-// import { FaGoogle, FaFacebook } from "react-icons/fa";
 import { AuthContext } from "./context/UserContext";
-// import { GoogleAuthProvider } from "firebase/auth";
 import toast from "react-hot-toast";
 import SmallSpinner from "./Spinner/SmallSpinner";
 
@@ -18,7 +16,6 @@ const SignUp = () => {
   const [error, setError] = useState("");
   const [role, setRole] = useState(false);
   const { user, loader, signUpUser, namePhoto } = useContext(AuthContext);
-  // const provider = new GoogleAuthProvider();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location?.state?.from?.pathname || "/";
@@ -26,12 +23,7 @@ const SignUp = () => {
   if (user) {
     return navigate("/");
   }
-  const handleRole = (event) => {
-    event.preventDefault();
-    setRole(!role);
-  };
 
-  // const select = form.select.value;
   //=====User Email&Pass SignUp====//
   const handleRegister = (event) => {
     event.preventDefault();
@@ -109,22 +101,6 @@ const SignUp = () => {
       });
   };
 
-  //=====google Login=====//
-  // const handleGoogleLogin = (event) => {
-  //   event.preventDefault();
-  //   googleLogIn(provider)
-  //     .then((result) => {
-  //       console.log(result.user);
-  //       setError("");
-  //       navigate("/");
-  //       toast.success("User Loged In!!");
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       setError(error.message);
-  //     });
-  // };
-
   return (
     <>
       <div className=" min-h-screen bg-base-100">
@@ -134,10 +110,10 @@ const SignUp = () => {
               Registration!
             </h1>
             <div className="flex justify-center items-center gap-2 mt-10 text-center">
-              <p>User</p>
+              <p>Customer</p>
 
               <input
-                onClick={handleRole}
+                onChange={()=>setRole(!role)}
                 type="checkbox"
                 className="toggle toggle-info"
               />
